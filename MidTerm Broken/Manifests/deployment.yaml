@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: test
+  name: flask-app
+  labels:
+    app: flask-app
+    component: greeting
+spec:
+  selector:
+    matchLabels:
+      app: flask-app
+      component: greeting
+  template:
+    metadata:
+      labels:
+        app: flask-app
+        component: greeting
+    spec:
+      imagePullSecrets:
+      - name: ecr-reg-cred
+      containers:
+      - name: flask-app
+        image: 272795904558.dkr.ecr.us-east-1.amazonaws.com/newimage:latest
+        ports:
+        - containerPort: 8081
